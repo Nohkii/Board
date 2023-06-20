@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="main.board.notice.NoticeMapper">
+	<insert id="insert" parameterType="main.board.notice.NoticeVO">
+		INSERT INTO notice_board(
+		board_id, writer, viewcount, title, contents, regdate, updatedate, deletedate
+		)VALUES(
+		#{board_id},#{writer},0,#{title},#{contents},NOW(),NOW(),NOW()
+		)
+
+	</insert>
+
+</mapper>
