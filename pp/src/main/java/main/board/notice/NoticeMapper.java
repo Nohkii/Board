@@ -10,7 +10,8 @@ public interface NoticeMapper {
 	int update(NoticeVO vo);
 	int delete(NoticeVO vo);
 	int count(NoticeVO vo);
+	
 	List<NoticeVO> list(NoticeVO vo);
 	NoticeVO view(NoticeVO vo);
-	int updateViewcoutn(int no);
+	int updateViewcount(int no);
 }

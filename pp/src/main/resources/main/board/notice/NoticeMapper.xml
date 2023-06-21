@@ -3,11 +3,42 @@
 <mapper namespace="main.board.notice.NoticeMapper">
 	<insert id="insert" parameterType="main.board.notice.NoticeVO">
 		INSERT INTO notice_board(
-		board_id, writer, viewcount, title, contents, regdate, updatedate, deletedate
+		board_id, writer, viewcount, title, contents, regdate, updatedate,
+		deletedate, memberno, membername
 		)VALUES(
-		#{board_id},#{writer},0,#{title},#{contents},NOW(),NOW(),NOW()
+		#{board_id},#{writer},0,#{title},#{contents},NOW(),NOW(),NOW(),#{memberno},#{membername}
 		)
-
 	</insert>
+
+	<select id="count" parameterType="main.board.notice.NoticeVO"
+		resultType="int">
+		SELECT COUNT(*) FROM notice_board
+		<include refid="whereSql" />
+	</select>
+	
+	<select id="list"
+		parameterType="main.board.notice.NoticeVO" resultType="main.board.notice.NoticeVO">
+		SELECT *
+	<!-- 	,(SELECT name FROM member WHERE no=board.memberno) membername -->
+		FROM notice_board
+		<include refid ="whereSql"/>
+		ORDER BY regdate DESC
+		LIMIT ${startIdx}, 10
+		<!-- 해당 페이지의 데이터를 가져올 수 있도록,, 10개씩 나눠서 계산 -->
+	</select>
+
+	<sql id="whereSql">
+		<where>
+			<if test="stype == 'all'">
+				(title LIKE '%${sword}%' OR content LIKE '%${sword}%')
+			</if>
+			<if test="stype != 'all' and stype != null and stype != ''">
+				${stype} LIKE '%${sword}%'
+			</if>
+			<if test="memberno != 0">
+				AND memberno = #{memberno}
+			</if>
+		</where>
+	</sql>
 
 </mapper>

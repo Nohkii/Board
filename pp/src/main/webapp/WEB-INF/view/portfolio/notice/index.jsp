@@ -1,22 +1,26 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!doctype html>
 <html lang="ko">
 <head>
-<title><%=util.Property.title %></title>
-<%@ include file="/WEB-INF/view//include/headHtml.jsp" %>
+<title><%=util.Property.title%></title>
+<%@ include file="/WEB-INF/view//include/headHtml.jsp"%>
 <script>
+	
 </script>
 </head>
 <body>
-<div id="boardWrap" class="bbs">
-	<div class="pageTitle">
-		<h2>공지사항</h2>
-	</div>
-	<!--//pageTitle-->
-	<!--//search-->
-	<div class="list">
+	<div id="boardWrap" class="bbs">
+		<div class="pageTitle">
+			<h2>공지사항</h2> 
+			<button>로그인</button>
+			<button>비밀번호</button>
+		</div>
+		<!--//pageTitle-->
+		<!--//search-->
+		<div class="list">
 			<table>
-				<caption> 목록 </caption>
+				<caption>목록</caption>
 				<colgroup>
 					<col width="50px" />
 					<col width="*" />
@@ -34,11 +38,29 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+
+					<c:if test="${empty result.list }">
+						<tr>
+							<td>${result.list }</td>
+							<td colspan="5">등록된 글이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach var="vo" items="${result.list}">
+						<tr>
+							<td>${vo.board_id }</td>
+							<td a href="view.do?no=${vo.board_id }">${vo.title }</td>
+
+							<td>${vo.writer }</td>
+							<td>${vo.regdate }</td>
+							<td>${vo.viewcount}</td>
+						</tr>
+					</c:forEach> 
+
+				<%--	<tr>
 						<td colspan="5">등록된 데이터가 없습니다.</td>
 					</tr>
-				<%
-						String targetUrl = "";
+				 <%
+						String targetUrl = (String)request.getAttribute("result");
 						for (int i=0; i<10; i++) {
 							targetUrl = "style='cursor:pointer;' onclick=\"location.href='view.do?idx="+i+"'\"";
 				%>
@@ -51,24 +73,24 @@
 					</tr>
 				<%
 						}
-				%>
+				%>  --%>
 				</tbody>
 			</table>
-		<div class="pagenate clear">
-			<ul class='page'>
-				<li><a href='javascript:;' class='current'>1</a></li>
-				<li><a href='/portfolio/notice/index.do?reqPageNo=2'>2</a></li>
-				<li><a href='/portfolio/notice/index.do?reqPageNo=3'>3</a></li>
-			</ul> 
-		</div>
-		<div class="btnSet">
-			<div class="right">
-				<a href="write.do" class="btn">작성</a>
+			<div class="pagenate clear">
+				<ul class='page'>
+					<li><a href='javascript:;' class='current'>1</a></li>
+					<li><a href='/portfolio/notice/index.do?reqPageNo=2'>2</a></li>
+					<li><a href='/portfolio/notice/index.do?reqPageNo=3'>3</a></li>
+				</ul>
+			</div>
+			<div class="btnSet">
+				<div class="right">
+					<a href="write.do" class="btn">작성</a>
+				</div>
 			</div>
 		</div>
+		<!--//list-->
 	</div>
-	<!--//list-->
-</div>
-<!--//boardWrap-->
+	<!--//boardWrap-->
 </body>
 </html>
