@@ -303,8 +303,14 @@ function test() {
 	<div id="header">
 		<h1><a href="<%=util.Property.contextPath%>/index.do">개인 포트폴리오</a><a href="javascript:;" onclick="test()">&nbsp;&nbsp;&nbsp;</a></h1>
 		<ul class="topmenu">
-			<li class="logout"></li>
-			<li class="homepage"><a href="http://gdu.co.kr" target="_blank">팀프로젝트</a></li>
+		<!-- portfolio > index.do 참고해서 세션이랑 추가하기~ -->
+	
+			<li class="homepage">
+                     <a href="/pp/member/login.do">로그인</a> |
+                    <a href="/pp/member/join.do">회원가입</a>
+				
+                    </li>
+				<!-- <a href="/test/member/logout.do">로그아웃</a> | -->
 		</ul>
 	</div>
 	<!--//header-->

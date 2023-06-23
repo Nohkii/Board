@@ -26,9 +26,8 @@ public class NoticeBoardController {
 	
 	@PostMapping("/portfolio/notice/process.do")
 	public String insert(Model model, NoticeVO vo, HttpSession sess) {
-		
+		System.out.println("=============="+vo.getTitle()+vo.getContents());
 		// 첨부파일추가
-
 		
 		if(nservice.insert(vo)) {
 			model.addAttribute("code","alertMessageUrl");

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -12,9 +12,16 @@
 <body>
 	<div id="boardWrap" class="bbs">
 		<div class="pageTitle">
-			<h2>공지사항</h2> 
-			<button>로그인</button>
-			<button>비밀번호</button>
+			<h2>공지사항</h2>
+			<br />
+			<%-- <c:if test="${empty loginSess }"> --%>
+				<a href="login.do">로그인</a> 
+                    <a href="join.do">회원가입 | </a>
+			<%-- </c:if> --%>
+			<%-- <c:if test="${!empty loginSess}">
+				<a href="/test/member/logout.do">로그아웃</a> |
+                    <a href="/test/member/mypage.do">마이페이지</a>
+			</c:if> --%>
 		</div>
 		<!--//pageTitle-->
 		<!--//search-->
@@ -54,9 +61,9 @@
 							<td>${vo.regdate }</td>
 							<td>${vo.viewcount}</td>
 						</tr>
-					</c:forEach> 
+					</c:forEach>
 
-				<%--	<tr>
+					<%--	<tr>
 						<td colspan="5">등록된 데이터가 없습니다.</td>
 					</tr>
 				 <%
