@@ -26,7 +26,7 @@ public class MemberController {
 	public String login(Model model, @CookieValue(value = "cookieId", required = false) String cookieId) {
 		System.out.println(cookieId);
 		model.addAttribute("cookieId", cookieId);
-		System.out.println("===============getMapping- login.do");
+//		System.out.println("===============getMapping- login.do");
 		return "member/login";
 	}
 	
@@ -36,7 +36,7 @@ public class MemberController {
 						@RequestParam String pwd,
 						@RequestParam(value="checkid", required=false) String checkid
 			) {
-		System.out.println(id+":"+pwd);
+		System.out.println("아이디:"+id+" 패스워드:"+pwd);
 		MemberVO login = mService.login(id, pwd);
 		
 		if (login == null) { // 로그인실패
@@ -59,6 +59,20 @@ public class MemberController {
 			return "redirect:/index.do";
 		}
 	}
+	@GetMapping("/logout.do")
+	public String logout(Model model, HttpSession sess) {
+		//세션 삭제
+		sess.invalidate();
+		model.addAttribute("code", "alertMessageUrl");
+		model.addAttribute("message", "로그아웃되었습니다.");
+		model.addAttribute("url", "/pp/index.do");
+		return "include/alert";
+	}
+	
+	@GetMapping("/join.do")
+	public String join() {
+		return "member/join";
+	}
 	
 	@PostMapping("/regist.do")
 	public String regist(Model model, MemberVO vo) {
@@ -68,7 +82,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("code", "alertMessageUrl");
 			model.addAttribute("message", "정상적으로 가입되었습니다.");
-			model.addAttribute("url", "/pp/lndex.do");
+			model.addAttribute("url", "login.do");
 		}
 		return "include/alert";
 	}
